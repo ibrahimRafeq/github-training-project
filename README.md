@@ -51,7 +51,7 @@ Postmanلاختبار الـ APIs
 
 
 Operating steps:
-1. Project cloning  "git clone https://github.com/your-username/smart-bureij.git"
+1. Project cloning  "git clone https://github.com/ibrahimRafeq/smart-bureij.git"
 2. Accessing the project  "cd smart-bureij"
 3. Setting the requirements "flutter pub get"
 4. Launch the application "flutter run"
