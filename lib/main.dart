@@ -330,6 +330,7 @@ class ServiceItem {
   ServiceItem(this.title, this.description, this.icon);
 }
 
+
 final List<ServiceItem> services = [
   ServiceItem('دفع الفواتير', 'خدمة سداد فواتير المياه والكهرباء', Icons.receipt_long),
   ServiceItem('طلب وثائق', 'استخراج شهادات الميلاد والرخص', Icons.description),
