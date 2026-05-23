@@ -102,20 +102,84 @@ class HomeContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(20.0),
+      physics: const BouncingScrollPhysics(),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: Text(
-              "الخدمات الإلكترونية",
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF2C3E50),
+          // كرت ترحيبي رسمي (الجديد)
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(25),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [Color(0xFF1A5276), Color(0xFF2980B9)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
+              borderRadius: BorderRadius.circular(25),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF1A5276).withOpacity(0.3),
+                  blurRadius: 15,
+                  offset: const Offset(0, 8),
+                ),
+              ],
             ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "مرحباً بك في بوابة بلدية البريج",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  "نسعى دائماً لتقديم أفضل الخدمات الإلكترونية لتسهيل معاملاتكم اليومية.",
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.9),
+                    fontSize: 14,
+                    height: 1.5,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton.icon(
+                  onPressed: () {},
+                  icon: const Icon(Icons.info_outline, size: 18),
+                  label: const Text("عن البلدية"),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: const Color(0xFF1A5276),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 30),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                "الخدمات الإلكترونية",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF2C3E50),
+                ),
+              ),
+              TextButton(
+                onPressed: () {},
+                child: const Text("عرض الكل", style: TextStyle(color: Color(0xFF1A5276))),
+              ),
+            ],
           ),
           const SizedBox(height: 10),
           LayoutBuilder(
@@ -132,7 +196,7 @@ class HomeContent extends StatelessWidget {
                   crossAxisCount: crossAxisCount,
                   crossAxisSpacing: 20,
                   mainAxisSpacing: 20,
-                  childAspectRatio: 1.2,
+                  childAspectRatio: 1.15,
                 ),
                 itemCount: services.length,
                 itemBuilder: (context, index) {
@@ -144,6 +208,7 @@ class HomeContent extends StatelessWidget {
               );
             },
           ),
+          const SizedBox(height: 20),
         ],
       ),
     );
@@ -165,13 +230,14 @@ class _ServiceCardState extends State<ServiceCard> {
   @override
   Widget build(BuildContext context) {
     return TweenAnimationBuilder<double>(
-      duration: Duration(milliseconds: 400 + (widget.index * 100)),
+      duration: Duration(milliseconds: 500 + (widget.index * 100)),
       tween: Tween(begin: 0.0, end: 1.0),
+      curve: Curves.easeOutCubic,
       builder: (context, value, child) {
         return Opacity(
           opacity: value,
           child: Transform.translate(
-            offset: Offset(0, 30 * (1 - value)),
+            offset: Offset(0, 40 * (1 - value)),
             child: child,
           ),
         );
@@ -180,61 +246,70 @@ class _ServiceCardState extends State<ServiceCard> {
         onEnter: (_) => setState(() => isHovered = true),
         onExit: (_) => setState(() => isHovered = false),
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeInOut,
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(20), // زوايا أكثر نعومة Material 3
+            borderRadius: BorderRadius.circular(24),
             boxShadow: [
               BoxShadow(
                 color: isHovered
-                    ? const Color(0xFF1A5276).withOpacity(0.15)
-                    : Colors.black.withOpacity(0.05),
-                blurRadius: isHovered ? 20 : 10,
-                offset: const Offset(0, 8),
+                    ? const Color(0xFF1A5276).withOpacity(0.12)
+                    : Colors.black.withOpacity(0.04),
+                blurRadius: isHovered ? 25 : 12,
+                offset: isHovered ? const Offset(0, 10) : const Offset(0, 4),
               ),
             ],
             border: Border.all(
-              color: isHovered ? const Color(0xFF1A5276) : Colors.grey.shade100,
-              width: 1.5,
+              color: isHovered ? const Color(0xFF1A5276).withOpacity(0.5) : Colors.white,
+              width: 2,
             ),
           ),
           child: InkWell(
             onTap: () {},
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(24),
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(12),
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 250),
+                    padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF1A5276).withOpacity(0.08),
+                      color: isHovered 
+                          ? const Color(0xFF1A5276) 
+                          : const Color(0xFF1A5276).withOpacity(0.08),
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
                       widget.service.icon,
-                      size: 40,
-                      color: const Color(0xFF1A5276),
+                      size: 32,
+                      color: isHovered ? Colors.white : const Color(0xFF1A5276),
                     ),
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 18),
                   Text(
                     widget.service.title,
+                    textAlign: TextAlign.center,
                     style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w800,
                       color: Color(0xFF2C3E50),
+                      letterSpacing: -0.5,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     widget.service.description,
                     textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontSize: 13,
                       color: Colors.grey.shade600,
                       height: 1.4,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ],
