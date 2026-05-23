@@ -49,6 +49,10 @@ Postmanلاختبار الـ APIs
 ****************************************
 
 
+Screenshots:
+<img width="1920" height="1080" alt="Screenshot (438)" src="https://github.com/user-attachments/assets/6ecf7738-b641-460d-a186-1814ba008692" />
+
+****************************************
 
 Operating steps:
 1. Project cloning  "git clone https://github.com/ibrahimRafeq/smart-bureij.git"
